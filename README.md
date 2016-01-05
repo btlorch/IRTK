@@ -1,4 +1,4 @@
-IRTK forked from [BioNedIA](https://github.com/BioMedIA/IRTK)
+IRTK forked from [BioMedIA](https://github.com/BioMedIA/IRTK)
 =========================
 
 First time build
