@@ -1,13 +1,16 @@
-IRTK forked from BiomedIA
+IRTK forked from [BioNedIA](https://github.com/BioMedIA/IRTK)
 =========================
 
-Instructions
-=======
+First time build
+----------------
 ```
 mkdir build && cd build/
 cmake -DCMAKE_INSTALL_PREFIX=../install ..
+make
 ```
 
+Rebuild only one application
+----------------------------
 ```
 cd build/
 make shiftRegion
