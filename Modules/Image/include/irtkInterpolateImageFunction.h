@@ -799,7 +799,11 @@ inline bool irtkInterpolateImageFunction::IsInside(double x, double y) const
 // -----------------------------------------------------------------------------
 inline bool irtkInterpolateImageFunction::IsInside(double x, double y, double z) const
 {
-  return (_x1 <= x && x <= _x2) && (_y1 <= y && y <= _y2) && (_z1 <= z && z <= _z2);
+  bool isInside = (_x1 <= x && x <= _x2) && (_y1 <= y && y <= _y2) && (_z1 <= z && z <= _z2);
+  if (!isInside) {
+    printf("(%f, %f, %f) is not inside!\n[x] %f <= %f <= %f\n[y]%f <= %f <= %f\n%f <= %f <= %f\n", x, y, z, _x1, x, _x2, _y1, y, _y2, _z1, z, _z2);
+  }
+  return isInside;
 }
 
 // -----------------------------------------------------------------------------
