@@ -19,6 +19,7 @@
 
 #include <irtkExtrapolateImageFunction.h>
 #include <irtkVoxelFunction.h>
+#define abs(x) ((x) < 0 ? -(x) : (x))
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -799,11 +800,16 @@ inline bool irtkInterpolateImageFunction::IsInside(double x, double y) const
 // -----------------------------------------------------------------------------
 inline bool irtkInterpolateImageFunction::IsInside(double x, double y, double z) const
 {
-  bool isInside = (_x1 <= x && x <= _x2) && (_y1 <= y && y <= _y2) && (_z1 <= z && z <= _z2);
-  if (!isInside) {
-    printf("(%f, %f, %f) is not inside!\n[x] %f <= %f <= %f\n[y]%f <= %f <= %f\n%f <= %f <= %f\n", x, y, z, _x1, x, _x2, _y1, y, _y2, _z1, z, _z2);
+  double eps = 1e-9;
+  bool allInside = (_x1 <= x && x <= _x2) && (_y1 <= y && y <= _y2) && (_z1 <= z && z <= _z2);
+  if (!allInside) {
+    printf("(%f, %f, %f) is not inside!\n[x] %f <= %f <= %f: %d\n[y] %f <= %f <= %f: %d\n[z] %f <= %f <= %f: %d\n", x, y, z, _x1, x, _x2, (_x1 <= x && x <= _x2), _y1, y, _y2, (_y1 <= y && y <= _y2), _z1, z, _z2, (_z1 <= z && z <= _z2));
+    printf("Eps: %f\n", eps);
   }
-  return isInside;
+  bool xInside = (_x1 - eps <= x && x <= _x2 + eps);
+  bool yInside = (_y1 - eps <= y && y <= _y2 + eps);
+  bool zInside = (_z1 - eps <= z && z <= _z2 + eps);
+  return xInside && yInside && zInside;
 }
 
 // -----------------------------------------------------------------------------
