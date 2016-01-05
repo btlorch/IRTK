@@ -9,7 +9,7 @@ cmake -DCMAKE_INSTALL_PREFIX=../install ..
 make
 ```
 
-Rebuild only one application
+Rebuild only single application
 ----------------------------
 ```
 cd build/
