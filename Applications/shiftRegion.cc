@@ -13,7 +13,7 @@ int main(int argc, char *argv[])
 {
   char *command = argv[0];
   argc--; argv++;
-  if(argc < 3){ usage(command); }
+  if (argc < 3){ usage(command); }
 
   // Filename
   char *input_name = argv[0];
@@ -35,7 +35,20 @@ int main(int argc, char *argv[])
   int Y = attr._y;
   int Z = attr._z;
 
-  // TODO: check whether input and vec have the same dimensionality.
+  // Check whether input and vec have the same dimensionality.
+  irtkImageAttributes vectorFieldAttrs = vec.GetImageAttributes();
+  int vecX = vectorFieldAttrs._x;
+  int vecY = vectorFieldAttrs._y;
+  int vecZ = vectorFieldAttrs._z;
+  int vecT = vectorFieldAttrs._t;
+  if (vecX != X || vecY != Y || vecZ != Z) {
+    fprintf(stderr, "Input image and vector field do not have the same dimensionality!\n");
+    return 1;
+  }
+  if (vecT != 3) {
+    fprintf(stderr, "The vector field does not define 3D vectors for each voxel.\n");
+    return 1;
+  }
 
   // Set up the image interpolator
   irtkInterpolationMode interp_mode = Interpolation_Linear;
@@ -81,4 +94,3 @@ int main(int argc, char *argv[])
 
   return 0;
 }
-
