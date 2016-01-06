@@ -68,13 +68,7 @@ int main(int argc, char *argv[])
 	// Compute the interpolated voxel intensity
 	// irtk/image++/src/irtkLinearInterpolateImageFunction.cc implements the interpolation.
 	double val;
-	if(interp->IsInside(x2, y2, z2)){
-	  val = interp->EvaluateInside(x2, y2, z2, 0);
-	}
-	else {
-	    printf("(%u, %u, %u) is mapped to (%f, %f, %f), which is outside!\n", x, y, z, x2, y2, z2);
-	    val = 0;
-	}
+	val = interp->Evaluate(x2, y2, z2);
 
 	// Assign to the voxel in the output image
 	output.Put(x, y, z, val);
